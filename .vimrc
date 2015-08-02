@@ -426,6 +426,8 @@
     " Map <Leader>ff to display all lines with keyword under cursor
     " and ask which one to jump to
     nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+    nmap <C-c>t :Ack <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-c>s :tag <C-R>=expand("<cword>")<CR><CR>
 
     " Easier horizontal scrolling
     map zl zL
