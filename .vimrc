@@ -426,8 +426,32 @@
     " Map <Leader>ff to display all lines with keyword under cursor
     " and ask which one to jump to
     nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
-    nmap <C-c>t :Ack <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-c>s :tag <C-R>=expand("<cword>")<CR><CR>
+
+    " cscope map
+    if has("cscope")
+        set cscopetag
+        set csto=0
+        if filereadable("cscope.out")
+            cs add cscope.out
+        endif
+        set csverb
+        " find this C symbol
+        nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+        " find this definition
+        nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+        " find functions calling this function
+        nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+        " find assignments to
+        nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+        " find this egrep pattern
+        nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+        " find this file
+        nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+        " find files #including this file
+        nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+        " find functions called by this function
+        nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+    endif
 
     " Easier horizontal scrolling
     map zl zL
